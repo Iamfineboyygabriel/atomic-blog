@@ -1,6 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { faker } from "@faker-js/faker";
-
 
 function createRandomPost() {
   return {
@@ -36,21 +35,22 @@ function PostProvider({ children }) {
     setPosts([]);
   }
 
+  const value = useMemo(
+    () => ({
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPosts: handleClearPosts,
+      searchQuery,
+      setSearchQuery,
+    }),
+    [searchQuery, searchedPosts]
+  );
+
   return (
     //this is here we are making use of the context which is the second step
     //providing value to the child component
     //to do this , specify the value prop
-    <PostContext.Provider
-      value={{
-        posts: searchedPosts,
-        onAddPost: handleAddPost,
-        onClearPosts: handleClearPosts,
-        searchQuery,
-        setSearchQuery,
-      }}
-    >
-      {children}
-    </PostContext.Provider>
+    <PostContext.Provider value={value}>{children}</PostContext.Provider>
   );
 }
 //here we placing the context provider component and the corresponding hook into the same file
