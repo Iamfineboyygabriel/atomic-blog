@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
 import "./style.css";
 import { PostProvider, usePosts } from "./PostProvider";
@@ -11,7 +11,6 @@ function createRandomPost() {
 }
 
 function App() {
-  const x = usePosts();
   // Whenever `isFakeDark` changes, we toggle the `fake-dark-mode` class on the HTML element (see in "Elements" dev tool).
   const [isFakeDark, setIsFakeDark] = useState(false);
 
